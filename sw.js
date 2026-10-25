@@ -1,5 +1,5 @@
 // Cache the app shell so Daily Bytes opens with no signal. Bump VERSION when shipping changes.
-const VERSION = "v1";
+const VERSION = "v2";
 const SHELL = [
   "./", "index.html", "styles.css", "app.js", "ai.js", "content/packs.js",
   "vendor/anthropic-sdk-0.133.0.js", "manifest.webmanifest", "icons/icon.svg", "icons/icon-192.png", "icons/icon-512.png",
