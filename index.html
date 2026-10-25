@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#14161c">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Daily Bytes</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Daily Bytes</h1>
+    <div class="streak" id="streak" title="Day streak">🔥 0</div>
+  </header>
+
+  <main id="app">
+    <!-- Onboarding: pick topics + schedule -->
+    <section class="view" data-view="setup">
+      <h2>What do you want to learn?</h2>
+      <p class="muted">Pick a few topics. Each session is one short lesson and a single quiz question, about 2–3 minutes.</p>
+      <div class="chips" id="topicChips"></div>
+
+      <h3>How often?</h3>
+      <div class="seg" id="freqSeg">
+        <button data-freq="1">Once a day</button>
+        <button data-freq="2">Twice a day</button>
+      </div>
+      <div class="times">
+        <label>Morning <input type="time" id="time0" value="08:00"></label>
+        <label id="time1Wrap">Evening <input type="time" id="time1" value="19:00"></label>
+      </div>
+
+      <button class="primary" id="saveSetup">Start learning</button>
+    </section>
+
+    <!-- Home: today's sessions -->
+    <section class="view" data-view="home">
+      <h2 id="greeting">Today</h2>
+      <div id="slots"></div>
+      <button class="ghost" id="extraBtn">One more byte</button>
+      <div class="stats" id="stats"></div>
+    </section>
+
+    <!-- Lesson -->
+    <section class="view" data-view="lesson">
+      <div class="card">
+        <div class="topic-tag" id="lessonTopic"></div>
+        <h2 id="lessonTitle"></h2>
+        <div id="lessonBody" class="body"></div>
+        <div class="takeaway" id="lessonTakeaway"></div>
+      </div>
+      <div class="card quiz">
+        <p class="q" id="quizQ"></p>
+        <div id="quizOptions"></div>
+        <p class="why" id="quizWhy" hidden></p>
+      </div>
+      <button class="primary" id="finishBtn" hidden>Done</button>
+    </section>
+
+    <!-- Settings -->
+    <section class="view" data-view="settings">
+      <h2>Settings</h2>
+      <button class="ghost" id="editTopics">Change topics &amp; schedule</button>
+
+      <h3>Reminders</h3>
+      <p class="muted">A web app can't reliably buzz your phone at a set time without a server. Instead, add recurring reminders to your phone's calendar. Tapping the event opens the app.</p>
+      <button class="ghost" id="icsBtn">Add reminders to calendar (.ics)</button>
+
+      <h3>Claude-generated lessons</h3>
+      <p class="muted">Built-in lesson packs work offline. If you add an Anthropic API key, Claude writes new lessons when a pack runs out, and for any custom topic you add. The key is stored only on this device.</p>
+      <label class="field">API key <input type="password" id="apiKey" placeholder="sk-ant-..." autocomplete="off"></label>
+      <label class="field">Model
+        <select id="model">
+          <option value="claude-opus-5-5">Claude Opus 5.5 (best)</option>
+          <option value="claude-sonnet-5-5">Claude Sonnet 5.5</option>
+          <option value="claude-haiku-5-5">Claude Haiku 5.5 (cheapest)</option>
+        </select>
+      </label>
+      <label class="field">Use Claude
+        <select id="aiMode">
+          <option value="fallback">When a pack runs out</option>
+          <option value="always">For every lesson</option>
+          <option value="off">Never</option>
+        </select>
+      </label>
+      <label class="field">Custom topic <input type="text" id="customTopic" placeholder="e.g. Diesel engines, Stoicism"></label>
+      <button class="ghost" id="addCustom">Add custom topic</button>
+      <button class="primary" id="saveSettings">Save</button>
+
+      <h3>Data</h3>
+      <button class="danger" id="resetBtn">Reset all progress</button>
+    </section>
+  </main>
+
+  <nav class="tabbar">
+    <button data-go="home">Today</button>
+    <button data-go="settings">Settings</button>
+  </nav>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="content/packs.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
